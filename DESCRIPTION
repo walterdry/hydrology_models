@@ -1,0 +1,17 @@
+Package: hydrologymodels
+Type: Package
+Title: Various Lumped Hydrological Model for Education Purpuses
+Version: 0.1.0
+Authors@R: c(person("Walter", "Bardales", role=c("aut", "cre"), email="bardaleswa@gmail.com"),
+             person("Claudio", "Castañon", role=c("aut"), email="claudiocastanon@gmail.com"))
+Author: Walter Bardales [aut, cre],
+  Claudio Castañon [aut]
+
+Depends: R (>= 4.0.0), stats
+Maintainer: Walter Bardales <bardaleswa@gmail.com>
+Description: The model, developed for Aguaconsulta, is a lumped conceptual rainfall-runoff model, following the structure of the HBV and Sacramento models.
+
+License: GPL (>= 2)
+NeedsCompilation: yes
+Encoding: UTF-8
+LazyData: true
