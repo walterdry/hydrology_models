@@ -81,14 +81,14 @@
     !Descontando a evaporação da zona de tensão superior, porém não pode ser evaporada mais água do que há nesta camada.
     UZTWC=UZTWC-E1
     E2=0.0
-    if(UZTWC.ge.0.0) goto 220
+    if(UZTWC .ge. 0.0) goto 220
     !E1 não pode exceder UZTWC
     E1=E1+UZTWC                                             !UZTWC(negativo)=UZTWC(real)-E1
     UZTWC=0.0
     RED=PET-E1
 
     !Descontando o resíduo da PET na zona livre superior
-    if(UZFWC.ge.RED) goto 221
+    if(UZFWC .ge. RED) goto 221
     !Se RED é maior que UZFWC, E2 não pode exceder a quantidade de água na zona livre superior.
     E2=UZFWC
     UZFWC=0.0
@@ -111,8 +111,8 @@
 
     !Verificando se os armazenamentos da zona superior secaram
 225 continue
-    if(UZTWC.lt.0.000001) UZTWC=0.0
-    if(UZFWC.lt.0.000001) UZFWC=0.0
+    if(UZTWC .lt. 0.000001) UZTWC=0.0
+    if(UZFWC .lt. 0.000001) UZFWC=0.0
 
 
     !Calculando a perda por evapotranspiração, na zona inferior, no intervalo
@@ -125,7 +125,7 @@
 
     !Descontando a evaporação da zona de tensão inferior
     LZTWC=LZTWC-E3
-    if(LZTWC.GE.0.0) goto 226
+    if(LZTWC .GE. 0.0) goto 226
     !E3 não pode exceder o armazenamento da zona de tensão inferior
     E3=E3+LZTWC                                             !LZTWC(negativo)=LZTWC(real)-E3
     LZTWC=0.0
@@ -134,30 +134,30 @@
 226 continue
     RATLZT=LZTWC/LZTWM
     RATLZ=(LZTWC+LZFPC+LZFSC-SAVED)/(LZTWM+LZFPM+LZFSM-SAVED)
-    if(RATLZT.ge.RATLZ) goto 230
+    if(RATLZT .ge. RATLZ) goto 230
     !Recarregando a zona de tensão inferior com água da zona livre inferior, se houver mais água lá.
     DEL=(RATLZ-RATLZT)*LZTWM
     !Transfere água da zona livre inferior suplementar (LZFSC) para a zona de tensão inferior (LZTWC)
     LZTWC=LZTWC+DEL
     LZFSC=LZFSC-DEL
-    if(LZFSC.ge.0.0) goto 230
+    if(LZFSC .ge. 0.0) goto 230
     !Se a transferência excedeu LZFSC então o resto vem da zona livre inferior primária (LZFPC)
     LZFPC=LZFPC+LZFSC
     LZFSC=0.0
 
     !Verificando se o armazenamento da LZFSC secou
 230 continue
-    if(LZTWC.lt.0.000001) LZTWC=0.0
+    if(LZTWC .lt. 0.000001) LZTWC=0.0
 
 
     !Calculando a perda por evapotranspiração da zona impermeavel no intervalo
     ! E5 =Evaporação ocorrida na zona impermeavel (mm)
 
-    E5=E1+(RED+E2)*( (ADIMC-E1-UZTWC)/(UZTWM+LZTWM) )
+    E5=E1+(RED+E2)*((ADIMC-E1-UZTWC)/(UZTWM+LZTWM))
 
     !Descontando a evaporação do armazenamento da área impermeável
     ADIMC=ADIMC-E5
-    if(adimc.ge.0.0) goto 231
+    if(adimc .ge. 0.0) goto 231
     !E5 não pode exceder o armazenamento da área impermeável
     E5=E5+ADIMC                                             !ADIMC(negativo)=ADIMC(real)-E5
     ADIMC=0.0
@@ -175,7 +175,7 @@
 
     TWX=PREC+UZTWC-UZTWM
 
-    if(TWX.ge.0.0) goto 232
+    if(TWX .ge. 0.0) goto 232
     !Se não houve excesso de água na zona de tensão superior...
     UZTWC=UZTWC+PREC
     TWX=0.0
@@ -233,7 +233,7 @@
     !Calculando escoamento superficial direto (da área impermeável)
     !ADDRO=Volume(coluna) de escomanto superficial direto da área impermeável
     RATIO=(ADIMC-UZTWC)/LZTWM
-    if(RATIO.lt.0.0) RATIO=0.0
+    if(RATIO .lt. 0.0) RATIO=0.0
     ADDRO=PINC*(RATIO**2)
 
 
@@ -241,7 +241,7 @@
     !BF   =Escoamento de base
     BF=LZFPC*DLZP
     LZFPC=LZFPC-BF
-    if(LZFPC.gt.0.0001) goto 234
+    if(LZFPC .gt. 0.0001) goto 234
     !O escoamento de base não pode exceder o armazenamento da zona livre inferior primária
     BF=BF+LZFPC                                             !LZFPC(negativo)=LZFPC(real)-BF
     LZFPC=0.0
@@ -253,7 +253,7 @@
     !Calculando o escoamento de base da zona livre inferior suplementar e o acumulado do intervalo de tempo
     BF=LZFSC*DLZS
     LZFSC=LZFSC-BF
-    if(LZFSC.gt.0.0001) goto 235
+    if(LZFSC .gt. 0.0001) goto 235
     !Escoamento de base não pode exceder o armazenamento da zona livre inferior suplementar
     BF=BF+LZFSC                                             !LZFSC(negativo)=LZFSC(real)-BF
     LZFSC=0.0
@@ -277,7 +277,7 @@
     DEFR=1.0-((LZTWC+LZFPC+LZFSC)/(LZTWM+LZFPM+LZFSM))
     FR=1.0
     FI=1.0
-    PERC=PERC*( 1.0+ZPERC*(DEFR**REXP) )*FR
+    PERC=PERC*(1.0+ZPERC*(DEFR**REXP) )*FR
     !OBS: A percolação ocorre da zona livre superior antes do PAV ser adicionado
     if(PERC.lt.UZFWC) goto 241
     !Percolação não pode exceder o armazenamento da zona livre superior
@@ -289,7 +289,7 @@
 
     !Verifica se a percolação excedeu a deficiência da zona inferior
     CHECK=LZTWC+LZFPC+LZFSC+PERC-LZTWM-LZFPM-LZFSM
-    if(CHECK.le.0.0) goto 242
+    if(CHECK .le. 0.0) goto 242
     !Volume dos armazenamentos das zonas inferiores mais percolação não deve exceder a capacidade máxima da zona inferior.
     PERC=PERC-CHECK
     !Devolvendo excesso à zona superior
@@ -320,7 +320,7 @@
     ! EXCESS=Eventual excesso da capacidade máxima da zona livre inferior primária
 
     PERCT=PERC*(1.0-PFREE)
-    if((PERCT+LZTWC).gt.LZTWM) goto 243
+    if((PERCT+LZTWC) .gt. LZTWM) goto 243
     !Zona de tensão inferior recebe água percolada
     LZTWC=LZTWC+PERCT
     PERCF=0.0
@@ -333,18 +333,18 @@
     !Distribui-se a água percolada em excesso da necessidade da zona de tensão entre os armazenamentos de água livre.
 244 continue
     PERCF=PERCF+PERC*PFREE
-    if(PERCF.eq.0.0) goto 245
+    if(PERCF .eq. 0.0) goto 245
     !Distribuindo percolação
     HPL=LZFPM/(LZFPM+LZFSM)
     RATLP=LZFPC/LZFPM
     RATLS=LZFSC/LZFSM
     FRACP=(HPL*2.0*(1.0-RATLP))/((1.0-RATLP)+(1.0-RATLS))
-    if(FRACP.gt.1.0) FRACP=1.0
+    if(FRACP .gt. 1.0) FRACP=1.0
     PERCP=PERCF*FRACP
     PERCS=PERCF-PERCP
     !Adicionando o excesso de percolação na zona suplementar
     LZFSC=LZFSC+PERCS
-    if(LZFSC.le.LZFSM) goto 246
+    if(LZFSC .le. LZFSM) goto 246
     !A adição do excesso da percolação não pode exceder a capacidade máxima da zona livre suplementar
     PERCS=PERCS-LZFSC+LZFSM                               !LZFSC(excesso)=LZFSC(real)+PERCS
     LZFSC=LZFSM
@@ -362,7 +362,7 @@
 
     !Distribuir PINC entre a zona superior livre e escoamento superficial
 245 continue
-    if(PINC.eq.0.0) goto 249
+    if(PINC .eq. 0.0) goto 249
     !Verificar se o acréscimo de PINC excede a capacidade máxima da zona livre superior
     if((PINC+UZFWC).gt.UZFWM) goto 248
     !Não excedeu, ou seja, toda a água infiltra, logo não haverá escoamento superficial
@@ -392,7 +392,7 @@
     !Acumulando escoamento superficial direto do incremento
 247 continue
     SDRO=SDRO+ADDRO*ADIMP
-    if(ADIMC.lt.0.000001) ADIMC=0.0
+    if(ADIMC .lt. 0.000001) ADIMC=0.0
 
 
     !Passa valores acumulados para variaveis secundárias
@@ -439,15 +439,15 @@
 
     !Subtrai a evapotranspiração da mata ciliar do escoamento afluente para o canal
     TCI=TCI-E4
-    if(TCI.GE.0.0) goto 250
+    if(TCI .GE. 0.0) goto 250
        E4=E4+TCI
        TCI=0.0
 250 continue
     GRND=GRND-E4
-    if(GRND.LT.0.0) then
+    if(GRND .LT. 0.0) then
        SURF=SURF+GRND
        GRND=0.0
-       if(SURF.LT.0.0) SURF=0.0
+       if(SURF .LT. 0.0) SURF=0.0
     end if
 
     !Calcula a evapotranspiração total que ocorreu efetivamente
@@ -456,7 +456,7 @@
     TET=EUSED+E5+E4
 
     !Verifica se armazenamento da área impermeável é maior que da zona de tensão superior
-    if(ADIMC.LT.UZTWC) ADIMC=UZTWC
+    if(ADIMC .LT. UZTWC) ADIMC=UZTWC
 
     Qbac(J)=TCI*Area/86.40
     enddo
