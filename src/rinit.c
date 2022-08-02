@@ -8,11 +8,11 @@
 
 /* .Fortran calls */
 extern void F77_NAME(hbvmodel)(void *, void *, void *, void *, void *, void *, void *, void *, void *);
-extern void F77_NAME(sacsmamodel)(void *, void *, void *, void *, void *, void *, void *, void *);
+extern void F90_NAME(sacsmamodel)(void *, void *, void *, void *, void *, void *, void *, void *);
 
 static const R_FortranMethodDef FortranEntries[] = {
     {"hbvmodel",      (DL_FUNC) &F77_NAME(hbvmodel),  9},
-    {"sacsmamodel", (DL_FUNC) &F77_NAME(sacsmamodel), 8},
+    {"sacsmamodel", (DL_FUNC) &F90_NAME(sacsmamodel), 8},
     {NULL, NULL, 0}
 };
 
