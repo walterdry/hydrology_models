@@ -1,50 +1,62 @@
 !    
 !     Modelo Sacramento-Soil Moisture Accounting (SAC-SMA) Diario
 !    
-     subroutine sacsma(ETp, CMB, Qin, Qout, N, 
-	*                 Area, Params, Qbac)
+     subroutine sacsma(ETp,CMB,Qin,Qout,N, 
+	*                 Area,Params,Qbac)
         
-    integer I, J, pt, N
-    real(8) ETp(N), CMB(N), Qin(N), Qout(N), Qbac(N)
+    integer I,J,pt,N
+    real(8) ETp(N),CMB(N),Qin(N),Qout(N),Qbac(N)
     real(8) Params(16), Area
 
 !   Parametros utilizados no modelo
-    real(8) UZTWM, UZFWM, LZTWM, LZFPM, LZFSM, UZK, LZPK, LZSK
-    real(8) PCTIM, ADIMP, ZPERC, REXP, PFREE, RIVA, RSERV, SIDE
+    real(8) UZTWM,UZFWM,LZTWM,LZFPM,LZFSM,UZK,LZPK,LZSK
+    real(8) PCTIM,ADIMP,ZPERC,REXP,PFREE,RIVA,RSERV,SIDE
 
 !   Armazenamentos utilizados no modelo
-    real(8) UZTWC, UZFWC, LZTWC, LZFPC, LZFSC, ADIMC
+    real(8) UZTWC,UZFWC,LZTWC,LZFPC,LZFSC,ADIMC
 
 !   Fluxos da contabilidade da umidade do solo (SMA)
-    real(8) E1, E2, E3, E4, E5, TWX, ROIMP, SUR, BF, PERC, DEL
+    real(8) E1,E2,E3,E4,E5,TWX,ROIMP,SUR,BF,PERC,DEL
 
 !   Variáveis auxiliares
-    real(8) RED, UZRAT, RATLZT, RATLZ, DEFR, FR, FI, CHECK
-    real(8) ADSUR, ADDRO, RATIO, PERCM, PERCT, PERCF
-    real(8) RATLP, RATLS, PERCP, PERCS, HPL
-    real(8) EXCESS, SAVED, FRACP, BFP, BFS, TBF
-    real(8) TCI, SURF, GRND, TET, EUSED, BFNCC, BFCC
-    real(8) PREC, PET
+    real(8) RED,UZRAT,RATLZT,RATLZ,DEFR,FR,FI,CHECK
+    real(8) ADSUR,ADDRO,RATIO,PERCM,PERCT,PERCF
+    real(8) RATLP,RATLS,PERCP,PERCS,HPL
+    real(8) EXCESS,SAVED,FRACP,BFP,BFS,TBF
+    real(8) TCI,SURF,GRND,TET,EUSED,BFNCC,BFCC
+    real(8) PREC,PET
 
 !   Acumuladores dos valores dos escoamentos nos intervalos de tempo
-    real(8) SBF, SSUR, SIF, SPERC, SDRO, SPBF
-    real(8) S2BF, S2SUR, S2IF, S2DRO
+    real(8) SBF,SSUR,SIF,SPERC,SDRO,SPBF
+    real(8) S2BF,S2SUR,S2IF,S2DRO
 
 !   Variávies do incremento de integração do modelo
     integer NINC
-    real(8) DINC, PINC
+    real(8) DINC,PINC
 
 !   Taxas de depleção de água por tempo do incremento
-    real(8) DUZ, DLZP, DLZS
+    real(8) DUZ,DLZP,DLZS
 
 !   Outras variáveis do modelo
-    real(8) PAREA, DT
+    real(8) PAREA,DT
 
 !   Passando valores dos parâmetros para as variaveis utilizadas no modelo
-    UZTWM=Params(01);    UZFWM=Params(02);    UZK =Params(03);    ZPERC=Params(04)
-    REXP=Params(05);    LZTWM=Params(06);    LZFSM=Params(07);    LZFPM=Params(08)
-    LZSK=Params(09);    LZPK=Params(10);    PFREE=Params(11);    PCTIM=Params(12)
-    ADIMP=Params(13);    RIVA =Params(14);    SIDE=Params(15);    RSERV=Params(16)
+    UZTWM=Params(01)
+	UZFWM=Params(02)
+	UZK =Params(03)
+	ZPERC=Params(04)
+    REXP=Params(05)
+	LZTWM=Params(06)
+	LZFSM=Params(07)
+	LZFPM=Params(08)
+    LZSK=Params(09)
+	LZPK=Params(10)
+	PFREE=Params(11)
+	PCTIM=Params(12)
+    ADIMP=Params(13)
+	RIVA =Params(14)
+	SIDE=Params(15)
+	RSERV=Params(16)
 
 !   Inicializando armazenamentos
     UZTWC=UZTWM*0.50
