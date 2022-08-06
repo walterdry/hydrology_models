@@ -1,7 +1,8 @@
     !===============================================================================
     ! Modelo: Sacramento-Soil Moisture Accounting (SAC-SMA) Diário
     !===============================================================================
-    subroutine sacsma(ETp, CMB, Qin, Qout, N, Area, Params, Qbac)
+    subroutine sacsma(ETp, CMB, Qin, Qout, N, 
+	*                 Area, Params, Qbac)
         
     integer I, J, pt, N
     real(8) ETp(N), CMB(N), Qin(N), Qout(N), Qbac(N)
@@ -447,7 +448,7 @@
        SURF=SURF+GRND
        GRND=0.0
        if(SURF .LT. 0.0) SURF=0.0
-    end if
+    endif
 
     !Calcula a evapotranspiração total que ocorreu efetivamente
     ! TET=Evapotranspiração total ocorrida (mm)
