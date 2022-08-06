@@ -2,10 +2,9 @@
     ! Modelo: Sacramento-Soil Moisture Accounting (SAC-SMA) Diário
     !===============================================================================
     subroutine sacsma(ETp, CMB, Qin, Qout, N, Area, Params, Qbac)
-    implicit none
-    
+        
     integer I, J, pt, N
-    real(8), dimension(1000000) :: ETp, CMB, Qin, Qout, Qbac
+    real(8) ETp(N), CMB(N), Qin(N), Qout(N), Qbac(N)
     real(8) Params(16), Area
 
     !Parametros utilizados no modelo
