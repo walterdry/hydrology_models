@@ -1,7 +1,7 @@
 !    
 !     Modelo Sacramento-Soil Moisture Accounting (SAC-SMA) Diario
 !    
-     subroutine sacsma(ETp,CMB,Qin,Qout,N,Area,Params,Qbac)
+   subroutine sacsma(ETp,CMB,Qin,Qout,N,Area,Params,Qbac)
         
     integer I,J,pt,N
     real(8) ETp(N),CMB(N),Qin(N),Qout(N),Qbac(N)
@@ -486,5 +486,5 @@
 
          Qbac(J)=TCI*Area/86.40
        enddo
-      return
-	 end subroutine sacsma
+   return
+   end subroutine sacsma
