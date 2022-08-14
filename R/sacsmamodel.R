@@ -9,7 +9,7 @@ sacsmamodel <- function (etp, prec, Qin, Qout, N, Area, Params=c(5.842, 836.713,
   storage.mode(Params) <- "double"
   Qbac <- rep(-99.9, length(prec))
 
-  dummy <- .Fortran("sacsmamodel", etp=etp, prec=prec, Qin=Qin, Qout=Qout, N=N, Area=Area, Params=Params, Qbac=Qbac, PACKAGE="hydrologymodels")
+  dummy <- .Fortran("sacsmamodel", ETp=etp, CMB=prec, Qin=Qin, Qout=Qout, N=N, Area=Area, Params=Params, Qbac=Qbac, PACKAGE="hydrologymodels")
 
  return(dummy)
 }
