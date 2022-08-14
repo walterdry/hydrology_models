@@ -1,7 +1,7 @@
     !===============================================================================
     ! Modelo: Sacramento - Soil Moisture Accounting (SAC-SMA) Diário
     !===============================================================================
-    SUBROUTINE sacsma(ETp, CMB, Qin, Qout, N, Area, Params, Qbac)
+    SUBROUTINE sacsmamodel(ETp, CMB, Qin, Qout, N, Area, Params, Qbac)
     implicit none
     
     integer :: I, J, pt, N
@@ -461,4 +461,4 @@
     Qbac(J) = TCI
     END DO
 
-    END SUBROUTINE sacsma
+    END SUBROUTINE sacsmamodel
