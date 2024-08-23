@@ -28,7 +28,7 @@ hbvmodel <- function (prec, airt, ep, area=1, param=c(1.2,1.2,2,-2,0,0.9,100,3.3
  storage.mode(output) <- "double"
 
  dummy <- .Fortran("hbvmodel", itsteps=as.integer(itsteps), nzones=as.integer(nzones), area=area, param=parametri, incon=inconditions,
-                    prec=prec, airt=airt, ep=ep, output=output, PACKAGE="TUWmodel")
+                    prec=prec, airt=airt, ep=ep, output=output, PACKAGE="hydrology_models")
  names(dummy$param) <- c("SCF","DDF","Tr","Ts","Tm","LPrat","FC","BETA","k0","k1","k2","lsuz","cperc","bmax","croute")
  names(dummy$incon) <- c("SSM0","SWE0","SUZ0","SLZ0")
  dummy$qzones <- t(dummy$output[,1,])
