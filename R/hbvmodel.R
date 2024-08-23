@@ -24,7 +24,7 @@ hbvmodel <- function (prec, airt, ep, area=1, param=c(1.2,1.2,2,-2,0,0.9,100,3.3
  storage.mode(area) <- "double"
  storage.mode(parametri) <- "double"
  storage.mode(inconditions) <- "double"
- output <- array(-777, dim=c(nzones, 20, itsteps))
+ output <- array(-777, dim=c(nzones, 1000, itsteps))
  storage.mode(output) <- "double"
 
  dummy <- .Fortran("hbvmodel", itsteps=as.integer(itsteps), nzones=as.integer(nzones), area=area, param=parametri, incon=inconditions,
