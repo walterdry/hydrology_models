@@ -8,7 +8,7 @@
 
 !      USE PARAMETERS 
 
-      PARAMETER(imodincon=4, maxout=20, maxparam=15)
+      PARAMETER(imodincon=4, maxout=1000, maxparam=15)
 
       integer itsteps,nzones,hzbnr
 
@@ -125,7 +125,7 @@
 
 !mf=kf*(tbf-ta)^ef
 
-!where TB,F (°C), refreezing parameter KF (mm °C-1 d-1) and empirical exponent eF have to be calibrated. According to Vehviläinen (1992), average values and standard deviations of the parameters are as follows: TB,F –1.7 and 1.2 (°C), KF 1.5 and 1.4 and eF 0.36 and 0.44. 
+!where TB,F (Â°C), refreezing parameter KF (mm Â°C-1 d-1) and empirical exponent eF have to be calibrated. According to VehvilÃ¤inen (1992), average values and standard deviations of the parameters are as follows: TB,F â€“1.7 and 1.2 (Â°C), KF 1.5 and 1.4 and eF 0.36 and 0.44. 
 
 
         call soilmoisture(rain,melt,etp,LP,FC,Beta,dmoist,moist,
